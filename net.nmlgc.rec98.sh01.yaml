@@ -8,7 +8,7 @@ build-options:
   append-path: /usr/lib/sdk/llvm19/bin
   prepend-ld-library-path: /usr/lib/sdk/llvm19/lib
 finish-args:
-  - --device=dri
+  - --device=all # Still required for gamepad input, as support for `--device=input` isn't widespread yet
   - --socket=wayland
   - --socket=fallback-x11
   - --socket=pulseaudio
@@ -98,7 +98,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/nmlgc/ssg.git
-        commit: 9e255e822b9cdc2ace2039f698f0b631cc72600c
+        commit: f50ada7370622a5912e24386e931b906cc307ca5
     buildsystem: simple
     build-options:
       # _FORTIFY_SOURCE currently doesn't work with the `std` module:
