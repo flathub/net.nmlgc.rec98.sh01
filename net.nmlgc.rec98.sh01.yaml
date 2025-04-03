@@ -98,7 +98,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/nmlgc/ssg.git
-        commit: f50ada7370622a5912e24386e931b906cc307ca5
+        tag: P0309
     buildsystem: simple
     build-options:
       # _FORTIFY_SOURCE currently doesn't work with the `std` module:
@@ -107,8 +107,8 @@ modules:
       cflags: -isystem /app/include/c++/v1/ -DPATH_XDG_DATA_HOME_HAS_APP_ID -Wp,-U_FORTIFY_SOURCE
       env:
         COMPILER_PATH: /app/lib # for finding `libc++.modules.json`
-        APP_NAME: net.nmlgc.rec98.sh01
+        APP_ID: net.nmlgc.rec98.sh01
     build-commands:
-      - PATH_SKELETON="/app/share/skel" ./build.sh bin/GIAN07
-      - ROOT="/app/" ./install.sh "$APP_NAME"
+      - PATH_SKELETON="/app/share/skel" ./build_linux.sh sdl2 bin/GIAN07
+      - ROOT="/app/" ./install_linux.sh "$APP_ID"
       - install -Dm644 ./GIAN07/net.nmlgc.rec98.sh01.metainfo.xml -t /app/share/metainfo
