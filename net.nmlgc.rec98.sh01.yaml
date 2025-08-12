@@ -98,7 +98,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/nmlgc/ssg.git
-        tag: P0310-1
+        tag: P0310-2
     buildsystem: simple
     build-options:
       # _FORTIFY_SOURCE currently doesn't work with the `std` module:
