@@ -1,12 +1,7 @@
 id: net.nmlgc.rec98.sh01
 runtime: org.freedesktop.Platform
-runtime-version: '24.08'
+runtime-version: '25.08'
 sdk: org.freedesktop.Sdk
-sdk-extensions:
-  - org.freedesktop.Sdk.Extension.llvm19
-build-options:
-  append-path: /usr/lib/sdk/llvm19/bin
-  prepend-ld-library-path: /usr/lib/sdk/llvm19/lib
 finish-args:
   - --device=all # Still required for gamepad input, as support for `--device=input` isn't widespread yet
   - --socket=wayland
@@ -47,28 +42,6 @@ modules:
       - /include
       - /lib/pkgconfig
 
-  # Required for C++23 Standard Library Module support, and not part of the
-  # LLVM SDK extension.
-  - name: libcxx
-    buildsystem: cmake-ninja
-    builddir: true
-    subdir: runtimes
-    sources:
-      - type: archive
-        url: https://github.com/llvm/llvm-project/releases/download/llvmorg-19.1.6/llvm-project-19.1.6.src.tar.xz
-        sha256: e3f79317adaa9196d2cfffe1c869d7c100b7540832bc44fe0d3f44a12861fa34
-    config-opts:
-      - -DCMAKE_BUILD_TYPE=RelWithDebInfo
-      - -DCMAKE_C_COMPILER=clang
-      - -DCMAKE_CXX_COMPILER=clang++
-      - -DLLVM_ENABLE_RUNTIMES=libcxx;libcxxabi;libunwind
-    cleanup:
-      - /include
-      - /lib/*.a
-      - /lib/libc++.modules.json
-      - /share/libc++
-      - /share/man
-
   - name: tup
     sources:
       - type: archive
@@ -98,7 +71,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/nmlgc/ssg.git
-        tag: P0310-2
+        tag: P0326
     buildsystem: simple
     build-options:
       # _FORTIFY_SOURCE currently doesn't work with the `std` module:
@@ -109,6 +82,6 @@ modules:
         COMPILER_PATH: /app/lib # for finding `libc++.modules.json`
         APP_ID: net.nmlgc.rec98.sh01
     build-commands:
-      - PATH_SKELETON="/app/share/skel" ./build_linux.sh sdl2 bin/GIAN07
+      - PATH_SKELETON="/app/share/skel" ./build_linux.sh bin/GIAN07
       - ROOT="/app/" ./install_linux.sh "$APP_ID"
       - install -Dm644 ./GIAN07/net.nmlgc.rec98.sh01.metainfo.xml -t /app/share/metainfo
