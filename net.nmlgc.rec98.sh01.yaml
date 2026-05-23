@@ -74,12 +74,8 @@ modules:
         tag: P0326
     buildsystem: simple
     build-options:
-      # _FORTIFY_SOURCE currently doesn't work with the `std` module:
-      #
-      #   https://github.com/llvm/llvm-project/issues/121709
-      cflags: -isystem /app/include/c++/v1/ -DPATH_XDG_DATA_HOME_HAS_APP_ID -Wp,-U_FORTIFY_SOURCE
+      cflags: -DPATH_XDG_DATA_HOME_HAS_APP_ID
       env:
-        COMPILER_PATH: /app/lib # for finding `libc++.modules.json`
         APP_ID: net.nmlgc.rec98.sh01
     build-commands:
       - PATH_SKELETON="/app/share/skel" ./build_linux.sh bin/GIAN07
