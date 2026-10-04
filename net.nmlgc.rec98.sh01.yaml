@@ -1,6 +1,6 @@
 id: net.nmlgc.rec98.sh01
 runtime: org.freedesktop.Platform
-runtime-version: '25.08'
+runtime-version: '26.08'
 sdk: org.freedesktop.Sdk
 finish-args:
   - --device=all # Still required for gamepad input, as support for `--device=input` isn't widespread yet
@@ -71,13 +71,14 @@ modules:
     sources:
       - type: git
         url: https://github.com/nmlgc/ssg.git
-        tag: P0326
+        tag: P0341
+        commit: dc63b340a7c184b456850972b89324d9a8f13c4f
     buildsystem: simple
     build-options:
       cflags: -DPATH_XDG_DATA_HOME_HAS_APP_ID
       env:
         APP_ID: net.nmlgc.rec98.sh01
     build-commands:
-      - PATH_SKELETON="/app/share/skel" ./build_linux.sh bin/GIAN07
+      - PATH_SKELETON="/app/share/skel" ./build_linux.sh bin/GIAN07 bin/ssg_cli
       - ROOT="/app/" ./install_linux.sh "$APP_ID"
       - install -Dm644 ./GIAN07/net.nmlgc.rec98.sh01.metainfo.xml -t /app/share/metainfo
